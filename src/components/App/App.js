@@ -13,6 +13,7 @@ class App extends Component {
     query: "",
     page: 1,
     isLoading: false,
+    loadMoreButt: false,
     openedModal: false,
     modalImage: {},
   };
@@ -49,6 +50,7 @@ class App extends Component {
           this.setState({
             images: [...photos],
             isLoading: false,
+            loadMoreButt: photos.length === 12 ? true : false,
           });
         }
       });
@@ -58,6 +60,7 @@ class App extends Component {
           this.setState({
             images: [...prevState.images, ...photos],
             isLoading: false,
+            loadMoreButt: photos.length === 12 ? true : false,
           });
           window.scrollTo({
             top: document.documentElement.scrollHeight,
@@ -80,7 +83,7 @@ class App extends Component {
               photos={this.state.images}
               openModal={this.openModal}
             />
-            <Button loadMore={this.loadMore} />
+            {this.state.loadMoreButt && <Button loadMore={this.loadMore} />}
           </>
         ) : (
           <h1>Please enter a query!</h1>
